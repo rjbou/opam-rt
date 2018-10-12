@@ -817,6 +817,7 @@ end
 
 let tests =
   List.map (fun m -> let module M = (val m:TEST) in M.name, m) [
+(*
     (module Repo_update : TEST);
     (module Dev_update  : TEST);
     (module Pin_update  : TEST);
@@ -824,5 +825,6 @@ let tests =
     (module Reinstall   : TEST);
     (module Pin_advanced: TEST);
     (module Dep_cycle   : TEST);
+*)
     (module Big_upgrade : TEST);
   ]
