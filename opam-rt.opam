@@ -13,7 +13,7 @@ build: [ make ]
 depends: [
   "ocaml" {build & >= "4.03.0"}
   "dune" {build}
-  "opam-client" { >="2.1.0~beta" }
+  "opam-client" { >="2.1.0~alpha" }
   "cohttp-lwt-unix" { < "2.0.0" }
 ]
 synopsis: "Test suite for opam"
