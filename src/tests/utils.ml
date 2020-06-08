@@ -141,8 +141,9 @@ let a2 contents_root =
   package "a" 2 (Some `git) contents_root
 
 let not_very_random n =
+  let open OpamCompat in
   let i = Random.int n in
-  if i > Pervasives.(n / 2) then 0 else i
+  if i > Stdlib.(n / 2) then 0 else i
 
 let ar root _ =
   let seed = not_very_random 10 in
