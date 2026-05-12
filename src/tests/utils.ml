@@ -26,6 +26,8 @@ exception Allowed_failure
 let log fmt =
   OpamConsole.log "RT" fmt
 
+let (!!) = OpamRepositoryRoot.Dir.of_dir
+
 let ok () =
   OpamConsole.msg "%s\n%!" (OpamConsole.colorise `green "[SUCCESS]")
 
@@ -154,13 +156,13 @@ let random_list n fn =
   Array.to_list (Array.init n fn)
 
 (* Create a repository with 2 packages and a complex history *)
-let create_repo_with_history repo contents_root =
+let create_repo_with_history (repo:dirname) contents_root =
   OpamFilename.mkdir repo;
   Git.init repo;
   let repo_file =
     OpamFile.Repo.create ~opam_version:OpamFile.Repo.format_version ()
   in
-  let repo_filename = OpamRepositoryPath.repo repo in
+  let repo_filename = OpamRepositoryRoot.Dir.Path.repo (!!repo) in
   OpamFile.Repo.write repo_filename repo_file;
   Git.commit_file repo (OpamFile.filename repo_filename) "Initialise repo";
   let all = [
@@ -182,7 +184,7 @@ let create_simple_repo repo contents_root contents_kind =
   let repo_file =
     OpamFile.Repo.create ~opam_version:OpamFile.Repo.format_version ()
   in
-  let repo_filename = OpamRepositoryPath.repo repo in
+  let repo_filename = OpamRepositoryRoot.Dir.Path.repo (!!repo) in
   OpamFile.Repo.write repo_filename repo_file;
   Git.commit_file repo (OpamFile.filename repo_filename) "Initialise repo";
   let package0 =

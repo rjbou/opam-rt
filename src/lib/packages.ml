@@ -21,6 +21,8 @@ open OpamTypes
 
 let log = OpamConsole.log "PACKAGES"
 
+let (!!) = OpamRepositoryRoot.Dir.of_dir
+
 let random_string n =
   let s = Bytes.create n in
   Bytes.iteri (fun i _ ->
@@ -180,8 +182,8 @@ let files = function
     ]
 
 let file_list repo prefix nv =
-  let opam = OpamRepositoryPath.opam repo prefix nv in
-  let files = OpamRepositoryPath.files repo prefix nv in
+  let opam = OpamRepositoryRoot.Dir.Path.opam (!!repo) prefix nv in
+  let files = OpamRepositoryRoot.Dir.Path.files (!!repo) prefix nv in
   let archive =
     OpamFilename.Op.(
       repo / ".." / "repo_archives" // (OpamPackage.to_string nv ^ ".tar.gz"))
